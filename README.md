@@ -35,17 +35,14 @@ After the image is created you can use it for creating as many VMs as you wish
 
 Create resource group for VM 
 ```powershell
-New-AzResourceGroup -ResourceGroupName rr1_windowsvm -Location $env:AZURELOCATION
-New-AzResourceGroup -ResourceGroupName rr1_linuxvm -Location $env:AZURELOCATION
+New-AzResourceGroup -ResourceGroupName rr1windowsvm -Location $env:AZURELOCATION
+New-AzResourceGroup -ResourceGroupName rr1linuxvm -Location $env:AZURELOCATION
 ```
 
 Create VM from image.   
 ```powershell
 $UserName = "[admin username for new VM]"
 $Password = "[admin password for new VM]"
-.\CreateVMFromImage.ps1 -ResourceGroupName rr1_windowsvm -VMName rr1_windowsvm -ImageResourceGroupName rr1_osimages -ImageName windowsserver_2019_datacenter -UserName $UserName -Password $Password
-.\CreateVMFromImage.ps1 -ResourceGroupName rr1_linuxvm -VMName rr1_linuxvm -ImageResourceGroupName rr1_osimages -ImageName ubuntuserver_1804_LTS -UserName $UserName -Password $Password
+.\CreateVMFromImage.ps1 -ResourceGroupName rr1windowsvm -VMName rr1windowsvm -ImageResourceGroupName rr1_osimages -ImageName windowsserver_2019_datacenter -UserName $UserName -Password $Password
+.\CreateVMFromImage.ps1 -ResourceGroupName rr1linuxvm -VMName rr1linuxvm -ImageResourceGroupName rr1_osimages -ImageName ubuntuserver_1804_LTS -UserName $UserName -Password $Password
 ```
-
-
-
