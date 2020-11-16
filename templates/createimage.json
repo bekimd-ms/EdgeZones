@@ -1,0 +1,69 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "apiVersion": {
+            "defaultValue": "2020-06-01",
+            "type": "string"
+        },
+        "imagename": {
+            "defaultValue": "ubuntuEz",
+            "type": "string"
+        },
+        "diskId": {
+            "type": "string"
+        },
+        "diskSizeGB": {
+            "type": "int"
+        },
+        "osType": {
+            "defaultValue": "Linux",
+            "type": "string"
+        },
+        "osDiskCaching": {
+            "defaultValue": "ReadWrite",
+            "type": "string"
+        },
+        "osAccountType": {
+            "defaultValue": "Premium_LRS",
+            "type": "string"
+        },
+        "site": {
+            "defaultValue": "MicrosoftRRDCLab1",
+            "type": "string"
+        },
+        "hyperVGeneration": {
+            "defaultValue": "V1",
+           "type": "string"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Compute/images",
+            "apiVersion": "[parameters('apiVersion')]",
+            "name": "[parameters('imagename')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "storageProfile": {
+                    "osDisk": {
+                        "osType": "[parameters('osType')]",
+                        "managedDisk": {
+                            "id": "[parameters('diskId')]"
+                        },
+                        "caching": "[parameters('osDiskCaching')]",
+                        "storageAccountType": "[parameters('osAccountType')]",
+                        "diskSizeGB": "[parameters('diskSizeGB')]"
+                    },
+                    "dataDisks": []
+                },
+                "hyperVGeneration": "[parameters('hyperVGeneration')]"
+            },
+            "extendedLocation": {
+                "type": "EdgeZone",
+                "name": "[parameters('site')]"
+            }
+        }
+    ]
+}
+
+

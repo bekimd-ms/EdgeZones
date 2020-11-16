@@ -1,0 +1,43 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "apiVersion": {
+            "defaultValue": "2020-06-30",
+            "type": "string"
+        },
+        "diskname": {
+            "type": "string"
+        },
+        "diskuploadsize": {
+            "type": "string"
+        },
+        "site": {
+            "defaultValue": "MicrosoftRRDCLab1",
+            "type": "string"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Compute/disks",
+            "apiVersion": "[parameters('apiVersion')]",
+            "name": "[parameters('diskname')]",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "Premium_LRS"
+            },
+            "properties": {
+                "creationData": {
+                    "createOption": "Upload",
+                    "uploadSizeBytes": "[parameters('diskuploadsize')]"
+                }
+            },
+            "extendedLocation": {
+                "type": "EdgeZone",
+                "name": "[parameters('site')]"
+            }
+        }
+    ]
+}
+
+
