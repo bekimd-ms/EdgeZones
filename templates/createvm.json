@@ -86,10 +86,23 @@
                     {
                         "name": "default-allow-ssh",
                         "properties": {
-                            "priority": 1000,
+                            "priority": 1001,
                             "access": "Allow",
                             "direction": "Inbound",
                             "destinationPortRange": "22",
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*"
+                        }
+                    },
+                    {
+                        "name": "default-allow-rdp",
+                        "properties": {
+                            "priority": 1002,
+                            "access": "Allow",
+                            "direction": "Inbound",
+                            "destinationPortRange": "3389",
                             "protocol": "Tcp",
                             "sourcePortRange": "*",
                             "sourceAddressPrefix": "*",
