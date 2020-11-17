@@ -30,7 +30,7 @@ Copy the disk into a disk at edge site
 .\CopyDiskToEdgeSite.ps1 -SourceResourceGroupName osimages -SourceDiskName ubuntuserver_1804_LTS -ResourceGroupName rr1_osimages -DiskName ubuntuserver_1804_LTS
 ```
 
-Create image from disk at edge sire
+Create image from disk at edge site
 ```powershell
 .\CreateImageFromDisk.ps1 -SourceResourceGroupName rr1_osimages -SourceDiskName windowsserver_2019_datacenter -ResourceGroupName rr1_osimages -ImageName windowsserver_2019_datacenter -OsType Windows
 .\CreateImageFromDisk.ps1 -SourceResourceGroupName rr1_osimages -SourceDiskName ubuntuserver_1804_LTS -ResourceGroupName rr1_osimages -ImageName ubuntuserver_1804_LTS -OsType Linux
