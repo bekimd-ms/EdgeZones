@@ -18,6 +18,9 @@ Create a disk from a PIR image. Find the available images using: Get-AzVMImagePu
 .\CreateDiskFromImage.ps1 -Location eastus2euap -Publisher MicrosoftWindowsServer -Offer WindowsServer -Sku 2019-Datacenter -Version 2019.0.20181107 -ResourceGroupName osimages -DiskName windowsserver_2019_datacenter
 .\CreateDiskFromImage.ps1 -Location eastus2euap -Publisher Canonical -Offer UbuntuServer -Sku 18.04-LTS -Version 18.04.202011120 -ResourceGroupName osimages -DiskName ubuntuserver_1804_LTS
 ```
+The following scripts use azcopy to copy the disk content from azure region to edge site. 
+[Install azcopy](https://azcopyvnext.azureedge.net/release20201106/azcopy_windows_amd64_10.7.0.zip)
+Unzip and make sure you ad azcopy.exe binary location to path before running the next script. 
 
 Copy the disk into a disk at edge site 
 ```powershell
