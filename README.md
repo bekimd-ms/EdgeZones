@@ -10,7 +10,7 @@ Create resource group for disks and images for the edge site
 Set the location and site environment variables<br>
 ```powershell
 $env:AZURELOCATION =  "eastus2euap"
-$env:AZURESITE = "microsoftrrdclab1"
+$env:AZURESITE = "MicrosoftRRDCLab1"
 ```
 
 Create a disk from a PIR image. Find the available images using: Get-AzVMImagePublisher, Get-AzVMImageOffer, Get-AzVMImageSKU, Get-AzVMImage.  
