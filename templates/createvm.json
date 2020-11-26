@@ -42,7 +42,7 @@
         "site": {
             "defaultValue": "MicrosoftRRDCLab1",
             "type": "string"
-        },
+        }
     },
     "variables": {
         "vmName": "[parameters('vmName')]",
@@ -68,7 +68,7 @@
             },
             "sku": {
                 "name": "Standard"
-              },
+            },
             "properties": {
                 "publicIPAllocationMethod": "Static",
                 "dnsSettings": {
