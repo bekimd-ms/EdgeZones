@@ -69,6 +69,20 @@
         "site": {
             "defaultValue": "MicrosoftRRDCLab1",
             "type": "string"
+        },
+        "_artifactsLocation": {
+            "type": "string",
+            "defaultValue": "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/201-vmss-bottle-autoscale/",
+            "metadata": {
+              "description": "The base URI where artifacts required by this template are located"
+            }
+        },
+        "_artifactsLocationSasToken": {
+            "type": "securestring",
+            "defaultValue": "",
+            "metadata": {
+                "description": "The sasToken required to access _artifactsLocation.  When the template is deployed using the accompanying scripts, a sasToken will be automatically generated"
+            }
         }
     },
     "variables": {
@@ -152,7 +166,7 @@
                             },
                             "protocol": "Tcp",
                             "frontendPort": 80,
-                            "backendPort": 80,
+                            "backendPort": 9000,
                             "enableFloatingIP": false,
                             "idleTimeoutInMinutes": 5,
                             "probe": {
@@ -166,7 +180,7 @@
                         "name": "tcpProbe",
                         "properties": {
                             "protocol": "Tcp",
-                            "port": 80,
+                            "port": 9000,
                             "intervalInSeconds": 5,
                             "numberOfProbes": 2
                         }
@@ -193,7 +207,7 @@
                 "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]"
             ],
             "properties": {
-                "overprovision": true,
+                "overprovision": false,
                 "upgradePolicy": {
                     "mode": "Automatic"
                 },
@@ -245,6 +259,26 @@
                                     ]
                                 }
                             }
+                        ]
+                    },
+                    "extensionProfile": {
+                        "extensions": [
+                          {
+                            "name": "lapextension",
+                            "properties": {
+                              "publisher": "Microsoft.Azure.Extensions",
+                              "type": "CustomScript",
+                              "typeHandlerVersion": "2.0",
+                              "autoUpgradeMinorVersion": true,
+                              "settings": {
+                                "fileUris": [
+                                  "[uri(parameters('_artifactsLocation'), concat('installserver.sh', parameters('_artifactsLocationSasToken')))]",
+                                  "[uri(parameters('_artifactsLocation'), concat('workserver.py', parameters('_artifactsLocationSasToken')))]"
+                                ],
+                                "commandToExecute": "bash installserver.sh"
+                              }
+                            }
+                          }
                         ]
                     }
                 }
@@ -327,6 +361,19 @@
                             "access": "Allow",
                             "direction": "Inbound",
                             "destinationPortRange": "3389",
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*"
+                        }
+                    },
+                    {
+                        "name": "default-allow-http",
+                        "properties": {
+                            "priority": 1003,
+                            "access": "Allow",
+                            "direction": "Inbound",
+                            "destinationPortRange": "80",
                             "protocol": "Tcp",
                             "sourcePortRange": "*",
                             "sourceAddressPrefix": "*",

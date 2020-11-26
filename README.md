@@ -51,3 +51,18 @@ $Password = "[admin password for new VM]"
 .\CreateVMFromImage.ps1 -ResourceGroupName rr1windowsvm -VMName rr1windowsvm -ImageResourceGroupName rr1_osimages -ImageName windowsserver_2019_datacenter -UserName $UserName -Password $Password
 .\CreateVMFromImage.ps1 -ResourceGroupName rr1linuxvm -VMName rr1linuxvm -ImageResourceGroupName rr1_osimages -ImageName ubuntuserver_1804_LTS -UserName $UserName -Password $Password
 ```
+
+Create resource group for VM 
+```powershell
+New-AzResourceGroup -ResourceGroupName rr1vmss -Location $env:AZURELOCATION
+```
+
+Create VMSS from image.   
+```powershell
+$UserName = "[admin username for new VM]"
+$Password = "[admin password for new VM]"
+.\CreateVMSSFromImage.ps1 -ResourceGroupName rr1wmss -VMSSName rr1windowsvm -InstanceCount 3 -ImageResourceGroupName rr1_osimages -ImageName ubuntuserver_1804_LTS -UserName $UserName -Password $Password
+```
+Obtain the IP address of the newly created load balancer. 
+
+You can then connect to http://[lbaddress] and see a simple web page from the application deployed in the VM scale set. 
