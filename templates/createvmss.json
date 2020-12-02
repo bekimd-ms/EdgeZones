@@ -99,7 +99,7 @@
         "natPoolName": "[concat(variables('namingInfix'), 'natpool')]",
         "bePoolName": "[concat(variables('namingInfix'), 'bepool')]",
         "lbPoolID": "[resourceId('Microsoft.Network/loadBalancers/backendAddressPools',variables('loadBalancerName'),variables('bePoolName'))]",
-        "natStartPort": 50000,
+        "natStartPort": 50001,
         "natEndPort": 50119,
         "natBackendPort": 22,
         "nicName": "[concat(variables('namingInfix'), 'nic')]",
@@ -382,7 +382,7 @@
                     }
                 ]
             }
-        },
+        }
     ],
     "outputs": {
         "applicationUrl": {
