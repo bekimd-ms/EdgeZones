@@ -8,17 +8,11 @@
                 "description": "Name of VM."
             }
         },
-        "imagePublisher": {
-            "type": "String"
-        },
-        "imageOffer": {
-            "type": "String"
-        },
-        "imageSku": {
-            "type": "String"
-        },
-        "imageVersion": {
-            "type": "String"
+        "imageId": {
+            "type": "String",
+            "metadata": {
+                "description": "Resource Id of the image resour"
+            }
         },
         "adminUsername": {
             "type": "String",
@@ -202,11 +196,8 @@
                 },
                 "storageProfile": {
                     "imageReference": {
-                        "publisher": "[parameters('imagePublisher')]",
-                        "offer": "[parameters('imageOffer')]",
-                        "sku": "[parameters('imageSku')]",
-                        "version": "[parameters('imageVersion')]"
-                    },
+					    "id": "[parameters('imageId')]"
+				    },
                     "osDisk": {
                         "createOption": "FromImage",
                         "managedDisk": {

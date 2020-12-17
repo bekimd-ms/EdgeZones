@@ -1,0 +1,44 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0",
+	"parameters": {
+		"accountname": {
+            "type": "String"
+        },
+		"skuname": {
+            "defaultValue": "Premium_LRS",
+            "type": "String"
+        },
+		"skutier": {
+            "defaultValue": "Premium",
+            "type": "String"
+        },
+		"kind": {
+            "defaultValue": "BlockBlobStorage",
+            "type": "String"
+        },
+        "site": {
+            "defaultValue": "",
+            "type": "string"
+        }      
+	},
+	"variables": {
+    },
+	"resources": [
+		{
+			"apiVersion": "2019-06-01",
+			"type": "Microsoft.Storage/storageAccounts",
+			"name": "[parameters('accountname')]",
+			"location": "[resourceGroup().location]",
+			"sku": {
+				"name": "[parameters('skuname')]",
+				"tier": "[parameters('skutier')]"
+            },
+            "kind": "[parameters('kind')]",
+            "extendedLocation": {
+                "type": "EdgeZone",
+                "name": "microsoftlosangeles1"
+            }
+		}
+    ]
+}

@@ -28,7 +28,7 @@
             "type": "string"
         },
         "site": {
-            "defaultValue": "MicrosoftRRDCLab1",
+            "defaultValue": "",
             "type": "string"
         },
         "hyperVGeneration": {
@@ -59,7 +59,7 @@
             },
             "extendedLocation": {
                 "type": "EdgeZone",
-                "name": "[parameters('site')]"
+                "name": "microsoftlosangeles1"
             }
         }
     ]

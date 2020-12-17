@@ -9,7 +9,7 @@ Param(
     [string]$site = $env:AZURESITE
   )
 
-$template = "templates\createvm.json"
+$template = "templates\createvmfromimage.json"
 $image = Get-AzImage -ResourceGroupName $ImageResourceGroupName -ImageName $ImageName
 
 Write-Host "Creating new VM..."

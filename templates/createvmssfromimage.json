@@ -26,17 +26,11 @@
                 "description": "Number of VM instances (100 or less)."
             }
         },
-        "imagePublisher": {
-            "type": "String"
-        },
-        "imageOffer": {
-            "type": "String"
-        },
-        "imageSku": {
-            "type": "String"
-        },
-        "imageVersion": {
-            "type": "String"
+        "imageId": {
+            "type": "String",
+            "metadata": {
+                "description": "Resource Id of the image resour"
+            }
         },
         "singlePlacementGroup": {
             "type": "bool",
@@ -111,6 +105,7 @@
         "nicName": "[concat(variables('namingInfix'), 'nic')]",
         "ipConfigName": "[concat(variables('namingInfix'), 'ipconfig')]",
         "frontEndIPConfigID": "[resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations',variables('loadBalancerName'),'loadBalancerFrontEnd')]",
+        "imageReference": "[parameters('imageId')]",
         "networkSecurityGroupName": "[concat(parameters('vmssName'),'-nsg')]"    
     },
     "resources": [
@@ -227,12 +222,9 @@
                                 "storageAccountType": "Premium_LRS"
                             }
                         },
-                        "imageReference": {
-                            "publisher": "[parameters('imagePublisher')]",
-                            "offer": "[parameters('imageOffer')]",
-                            "sku": "[parameters('imageSku')]",
-                            "version": "[parameters('imageVersion')]"
-                        }
+                        "imageReference":{
+                            "id": "[parameters('imageId')]"
+                        } 
                     },
                     "osProfile": {
                         "computerNamePrefix": "[variables('namingInfix')]",
