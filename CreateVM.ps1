@@ -3,8 +3,8 @@ Param(
     [string]$ResourceGroupName,
     [string]$VMName,
     [string]$OSType, 
-    [string]$UserName, 
-    [string]$Password,
+    [string]$AdminUserName, 
+    [string]$KeyFile, 
     [string]$site = $env:AZURESITE
   )
 
@@ -14,26 +14,28 @@ if ( $OsType -eq 'linux' ) {
   $imagePublisher =  "Canonical"
   $imageOffer = "UbuntuServer"
   $imageSku = "18.04-LTS"
-  $imageVersion = "18.04.202012010"
+  $imageVersion = "latest"
 } 
 else {
   $imagePublisher =  "MicrosoftWindowsServer"
   $imageOffer = "WindowsServer"
   $imageSku = "2016-Datacenter"
-  $imageVersion = "14393.4048.2011170655"  
+  $imageVersion = "latest"  
 }
 
+$keyValue = Get-Content -Path $KeyFile
 
 Write-Host "Creating new VM..."
+
 New-AzResourceGroupDeployment -verbose -name $ResourceGroupName -resourcegroupname $ResourceGroupName -templatefile $template `
                               -vmName $VMName `
                               -imagePublisher $imagePublisher `
                               -imageOffer $imageOffer `
                               -imageSku $imageSku `
                               -imageVersion $imageVersion `
-                              -adminUserName $UserName `
-                              -adminPassword $Password `
                               -dnsLabelPrefix $VMName `
+                              -adminUserName $AdminUserName `
+                              -adminPublicKey $keyValue `
                               -site $site
 
 

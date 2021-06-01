@@ -20,30 +20,18 @@
         "imageVersion": {
             "type": "String"
         },
-        "adminUsername": {
+        "adminUserName": {
             "type": "String",
-            "metadata": {
-                "description": "Username for the Virtual Machine."
-            }
         },
-        "adminPassword": {
+        "adminPublicKey": {
             "type": "String",
-            "metadata": {
-                "description": "Password for the Virtual Machine."
-            }
         },
         "vmSize": {
             "defaultValue": "Standard_D2s_v3",
             "type": "String",
-            "metadata": {
-                "description": "Size of the virtual machine."
-            }
         },
         "dnsLabelPrefix": {
             "type": "String",
-            "metadata": {
-                "description": "Unique DNS Name for the Public IP used to access the Virtual Machine."
-            }
         },
         "site": {
             "defaultValue": "",
@@ -198,7 +186,17 @@
                 "osProfile": {
                     "computerName": "[variables('vmName')]",
                     "adminUsername": "[parameters('adminUsername')]",
-                    "adminPassword": "[parameters('adminPassword')]"
+                    "linuxConfiguration": {
+                        "disablePasswordAuthentication": true,
+                        "ssh": {
+                          "publicKeys": [
+                            {
+                              "path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
+                              "keyData": "[parameters('adminPublicKey')]"
+                            }
+                          ]
+                        }
+                    }
                 },
                 "storageProfile": {
                     "imageReference": {
