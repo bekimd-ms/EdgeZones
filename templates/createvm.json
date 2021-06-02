@@ -23,7 +23,7 @@
         "adminUserName": {
             "type": "String",
         },
-        "adminPublicKey": {
+        "adminSecret": {
             "type": "String",
         },
         "vmSize": {
@@ -186,13 +186,14 @@
                 "osProfile": {
                     "computerName": "[variables('vmName')]",
                     "adminUsername": "[parameters('adminUsername')]",
+                    "adminPassword": "[parameters('adminSecret')]",
                     "linuxConfiguration": {
                         "disablePasswordAuthentication": true,
                         "ssh": {
                           "publicKeys": [
                             {
                               "path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
-                              "keyData": "[parameters('adminPublicKey')]"
+                              "keyData": "[parameters('adminSecret')]"
                             }
                           ]
                         }
